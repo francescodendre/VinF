@@ -1,0 +1,82 @@
+{
+  "_istruzioni": "Le parole si scrivono in minuscolo; accenti e apostrofi non contano (\"non è\" = \"non e\"). Una parola che compare nella ricerca non viene mai usata per scartare: cercando \"apple watch rotto\" i rotti restano.",
+
+  "accessori_nel_titolo": [
+    "cinturino", "cinturini", "strap", "straps", "band", "bands", "bracciale", "braccialetto",
+    "cinghia", "maglia", "maglie", "cover", "custodia", "custodie", "bumper", "pellicola",
+    "pellicole", "vetro temperato", "vetrino", "protezione schermo", "proteggi schermo",
+    "salvaschermo", "screen protector", "caricatore", "caricatori", "caricabatterie",
+    "caricabatteria", "base di ricarica", "basetta di ricarica", "stazione di ricarica",
+    "dock", "docking", "cavo", "cavetto", "charger", "charging", "supporto", "stand",
+    "scatola", "box", "confezione", "imballo", "skin", "adesivo", "adesivi", "sticker"
+  ],
+
+  "solo_accessorio": [
+    "solo cinturino", "solo il cinturino", "solo cinturini", "solo i cinturini", "solo cover",
+    "solo la cover", "solo custodia", "solo la custodia", "solo scatola", "solo la scatola",
+    "solo box", "solo confezione", "solo la confezione", "solo caricatore", "solo il caricatore",
+    "scatola vuota", "box vuoto", "box vuota", "confezione vuota", "empty box", "box only",
+    "only box", "only the box", "strap only", "band only", "only strap", "orologio non incluso",
+    "orologio non e incluso", "senza orologio", "non include l orologio",
+    "non comprende l orologio", "dispositivo non incluso", "watch not included"
+  ],
+
+  "prima_della_ricerca_accessorio": [
+    "per", "for", "pour", "fur", "para", "compatibile", "compatibile con", "compatibili",
+    "compatibili con", "compatible", "compatible with", "adatto a", "adatto per", "adatta a",
+    "adatti a"
+  ],
+
+  "prima_della_ricerca_imitazione": [
+    "tipo", "stile", "simile", "simile a", "simili", "similare", "like", "style", "ispirato",
+    "ispirato a", "imitazione"
+  ],
+
+  "citazione_accessorio": [
+    "con", "e", "ed", "piu", "+", "&", "incluso", "inclusa", "inclusi", "incluse", "compreso",
+    "compresa", "compresi", "comprese", "completo", "completa", "full", "with", "and",
+    "senza", "no", "niente", "without"
+  ],
+
+  "guasti": [
+    "rotto", "rotta", "rotti", "rotte", "guasto", "guasta", "guasti", "guaste",
+    "non funziona", "non funzionano", "non funzionante", "non funzionanti", "malfunzionamento",
+    "malfunzionamenti", "malfunzionante", "malfunziona", "difettoso", "difettosa", "difettosi",
+    "non si accende", "non si avvia", "non carica", "non si carica", "non tiene la carica",
+    "da riparare", "per riparazione", "per ricambi", "pezzi di ricambio", "come ricambio",
+    "crepato", "crepata", "crepa", "crepe", "incrinato", "incrinata", "spaccato", "spaccata",
+    "danneggiato", "danneggiata", "danneggiati", "bloccato", "bloccata", "blocco icloud",
+    "icloud attivo", "batteria gonfia", "broken", "not working", "doesn t work", "faulty",
+    "defective", "for parts", "spares", "cracked", "damaged", "icloud locked", "locked"
+  ],
+
+  "falsi": [
+    "replica", "repliche", "fake", "falso", "falsa", "falsi", "contraffatto", "contraffatta",
+    "contraffatti", "contraffazione", "imitazione", "imitazioni", "clone", "cloni",
+    "tarocco", "tarocca", "taroccato", "taroccata", "patacca", "copia 1:1", "1:1",
+    "copia perfetta", "copia identica", "e una copia", "non originale", "non originali",
+    "non e originale", "tipo originale", "aaa", "mirror quality"
+  ],
+
+  "negazioni": [
+    "non", "nessun", "nessuno", "nessuna", "mai", "senza", "zero", "no", "not", "never",
+    "privo", "priva", "esente", "nemmeno", "neanche", "neppure", "attenzione", "diffidate",
+    "diffidare", "occhio", "evitate", "beware"
+  ],
+
+  "sinonimi": {
+    "series": ["serie", "s"],
+    "serie": ["series", "s"],
+    "generazione": ["gen", "generation"],
+    "gen": ["generazione", "generation"],
+    "generation": ["gen", "generazione"]
+  },
+
+  "parole_vuote": [
+    "di", "da", "del", "della", "dello", "dei", "il", "lo", "la", "i", "gli", "le", "un", "uno",
+    "una", "e", "con", "per", "in", "su", "the", "a", "an", "of", "for", "and", "with"
+  ],
+
+  "soglia_prezzo_accessorio": 0.4,
+  "soglia_prezzo_sospetto": 0.5
+}
