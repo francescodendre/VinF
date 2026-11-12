@@ -1,0 +1,17 @@
+{
+  "name": "VinF",
+  "short_name": "VinF",
+  "description": "Le offerte di Vinted dal prezzo più basso, senza accessori, oggetti rotti o falsi.",
+  "lang": "it",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#E3DCCD",
+  "theme_color": "#E3DCCD",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

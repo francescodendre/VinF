@@ -3,102 +3,210 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VinF">
+<meta name="theme-color" content="#E3DCCD" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1C1A17" media="(prefers-color-scheme: dark)">
 <meta name="robots" content="noindex">
-<title>Ricerche Vinted</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500..800&family=EB+Garamond:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon-192.png">
+<title>VinF</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500..800&family=EB+Garamond:ital,wght@0,400..600;1,400&display=swap" rel="stylesheet">
 <style>
 :root{
-  --pietra:#E3DCCD;--inchiostro:#25211C;--tenue:#5F5648;--linea:#C3B8A2;
-  --minio:#9E2A1E;--bronzo:#86642A;--bronzo-testo:#FCF3DC;--avviso-fondo:#EEDDCB;
-  --foto:#D2C8B5;--capitali:"Cinzel","Trajan Pro","Times New Roman",serif;
+  --pietra:#E3DCCD;--pietra-chiara:#EDE7DB;--inchiostro:#25211C;--tenue:#5F5648;--linea:#C3B8A2;
+  --minio:#9E2A1E;--bronzo:#86642A;--bronzo-alto:#B48C45;--bronzo-basso:#6B4D1C;--bronzo-testo:#FCF3DC;
+  --avviso-fondo:#EEDDCB;--foto:#D2C8B5;--grana:.07;
+  --capitali:"Cinzel","Trajan Pro","Times New Roman",serif;
   --testo:"EB Garamond",Garamond,Georgia,serif;color-scheme:light;
 }
 @media (prefers-color-scheme:dark){:root{
-  --pietra:#1C1A17;--inchiostro:#E8E0D1;--tenue:#A89E8C;--linea:#3A342C;
-  --minio:#E5866F;--bronzo:#B48E48;--bronzo-testo:#1B1305;--avviso-fondo:#3B231C;
-  --foto:#2A2621;color-scheme:dark;
+  --pietra:#1C1A17;--pietra-chiara:#252220;--inchiostro:#E8E0D1;--tenue:#A89E8C;--linea:#3A342C;
+  --minio:#E5866F;--bronzo:#B48E48;--bronzo-alto:#D4AE63;--bronzo-basso:#8A6528;--bronzo-testo:#1B1305;
+  --avviso-fondo:#3B231C;--foto:#2A2621;--grana:.12;color-scheme:dark;
 }}
-*{box-sizing:border-box}
-html{-webkit-text-size-adjust:100%}
-body{margin:0;background:var(--pietra);color:var(--inchiostro);font-family:var(--testo);
-  font-size:1.09rem;line-height:1.5;
-  padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px)
-          env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
-main{max-width:42rem;margin:0 auto;padding:1.6rem 1.15rem 3rem}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{-webkit-text-size-adjust:100%;height:100%}
+body{margin:0;min-height:100%;background-color:var(--pietra);color:var(--inchiostro);font-family:var(--testo);
+  font-size:1.14rem;line-height:1.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .4 0 0 0 0 .34 0 0 0 0 .26 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.32'/%3E%3C/svg%3E");
+  background-blend-mode:multiply;}
+@media (prefers-color-scheme:dark){body{background-blend-mode:soft-light}}
+.vista{min-height:100dvh;padding:calc(env(safe-area-inset-top,0px) + .6rem) calc(env(safe-area-inset-right,0px) + 1.25rem)
+  calc(env(safe-area-inset-bottom,0px) + 2.5rem) calc(env(safe-area-inset-left,0px) + 1.25rem);
+  max-width:36rem;margin:0 auto}
+[hidden]{display:none!important}
 a{color:var(--minio)}
-a:focus-visible,summary:focus-visible{outline:2px solid var(--minio);outline-offset:3px}
-.indietro{display:inline-block;margin-bottom:1.6rem;font-family:var(--capitali);font-size:.82rem;
-  letter-spacing:.08em;text-decoration:none}
-h1{margin:0 0 1rem;font-family:var(--capitali);font-weight:600;font-size:clamp(1.65rem,7vw,2.55rem);
-  line-height:1.18;letter-spacing:.07em;text-transform:uppercase;overflow-wrap:anywhere}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--minio);outline-offset:3px}
+
+/* fregio con le Vittorie */
+.fregio{display:block;width:100%;height:auto;margin:0 auto;overflow:visible;
+  filter:drop-shadow(0 -1px 0 rgba(255,255,255,.35)) drop-shadow(0 2px 2px rgba(40,25,5,.28))}
+@media (prefers-color-scheme:dark){.fregio{filter:drop-shadow(0 -1px 0 rgba(255,235,190,.12)) drop-shadow(0 2px 3px rgba(0,0,0,.6))}}
+.figure{fill:url(#g-bronzo)}
+.braccio{fill:none;stroke:url(#g-bronzo);stroke-width:5.2;stroke-linecap:round;stroke-linejoin:round}
+.piume,.pieghe{fill:none;stroke:var(--pietra);stroke-linecap:round;opacity:.7}
+.piume{stroke-width:1}.pieghe{stroke-width:1.1}
+.alloro{fill:url(#g-bronzo);color:var(--bronzo)}
+.alloro path[stroke]{stroke:var(--bronzo)}
+.nastro{stroke:var(--minio);stroke-width:2.2;stroke-linecap:round}
+.suolo{stroke:var(--linea);stroke-width:1}
+@media (prefers-reduced-motion:no-preference){
+  .avvio .vit-sx{animation:entra-sx .9s cubic-bezier(.2,.7,.2,1) both}
+  .avvio .vit-dx{animation:entra-dx .9s cubic-bezier(.2,.7,.2,1) both}
+  .avvio .alloro{animation:corona .8s .45s cubic-bezier(.2,.7,.2,1) both;transform-origin:180px 52px}
+}
+@keyframes entra-sx{from{opacity:0;transform:translateX(-14px)}}
+@keyframes entra-dx{from{opacity:0;transform:translateX(14px)}}
+@keyframes corona{from{opacity:0;transform:translateY(-8px) scale(.85)}}
+
+/* home */
+.testata{padding-top:.6rem;text-align:center}
+.testata .fregio{max-width:25rem}
+.saluto{margin:.7rem 0 0;font-family:var(--capitali);font-weight:600;font-size:clamp(1.05rem,4.9vw,1.4rem);
+  line-height:1.3;letter-spacing:.12em;text-transform:uppercase}
 .punto{display:inline-block;width:.24em;height:.24em;background:var(--minio);
   clip-path:polygon(0 0,100% 0,50% 100%);vertical-align:.3em}
-.sintesi{margin:0 0 .25rem;font-size:1.15rem;font-weight:600}
-.dettagli{margin:0;color:var(--tenue);font-size:.98rem;max-width:36rem}
-.elenco{list-style:none;margin:1.9rem 0 0;padding:0;border-top:1px solid var(--linea)}
-.elenco>li{border-bottom:1px solid var(--linea)}
-.annuncio{display:grid;grid-template-columns:5.6rem 1fr;gap:1rem;padding:1.1rem 0;
-  color:inherit;text-decoration:none}
-.annuncio img,.senza-foto{display:block;width:5.6rem;height:7.4rem;object-fit:cover;
-  border-radius:2px;background:var(--foto)}
-.corpo{min-width:0}
-.omaggio{margin:0 0 1.7rem;text-align:center}
-.fregio{display:block;width:100%;max-width:21rem;height:auto;margin:0 auto}
-.risultati .fregio{max-width:15rem}
-.figure{fill:var(--bronzo)}
-.braccio{fill:none;stroke:var(--bronzo);stroke-width:5.2;stroke-linecap:round;stroke-linejoin:round}
-.piume,.pieghe{fill:none;stroke:var(--pietra);stroke-linecap:round;opacity:.75}
-.piume{stroke-width:1}
-.pieghe{stroke-width:1.1}
-.alloro{fill:var(--bronzo);color:var(--bronzo)}
-.nastro{stroke:var(--minio)}
-.suolo{stroke:var(--linea);stroke-width:1}
-.saluto{margin:.55rem 0 0;font-family:var(--capitali);font-weight:600;
-  font-size:clamp(1rem,4.6vw,1.3rem);line-height:1.3;letter-spacing:.12em;text-transform:uppercase}
-.testa{display:flex;align-items:center;gap:.6rem}
-.ordine{min-width:2.7rem;text-align:center;font-family:var(--capitali);font-size:.82rem;font-weight:700;
-  letter-spacing:.1em;color:var(--minio)}
-.ordine-corona{display:block;width:2.7rem;height:2.7rem;flex:none}
-.ordine-corona text{fill:var(--minio);font-family:var(--capitali);font-weight:700;font-size:13px}
-.tabula{position:relative;display:inline-block;padding:.46rem 1.45rem .36rem;background:var(--bronzo);
-  color:var(--bronzo-testo);font-family:var(--capitali);font-size:1.4rem;font-weight:700;
-  line-height:1;letter-spacing:.03em;white-space:nowrap;
+.domanda{margin:2.1rem 0 .7rem;font-size:1.25rem;font-weight:600;line-height:1.3}
+.campo{display:block;margin-bottom:.85rem}
+.campo span{display:block;margin-bottom:.25rem;color:var(--tenue);font-size:1rem}
+input{width:100%;font:inherit;font-size:1.2rem;color:var(--inchiostro);background:var(--pietra-chiara);
+  border:1px solid var(--linea);border-radius:3px;padding:.62rem .8rem;appearance:none}
+input::placeholder{color:var(--tenue);opacity:.7}
+input:focus{outline:none;border-color:var(--minio);box-shadow:0 0 0 1px var(--minio)}
+.riga{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+details.opzioni{margin:.1rem 0 1rem}
+details.opzioni>summary{cursor:pointer;color:var(--tenue);font-size:1rem;padding:.3rem 0;list-style:none}
+details.opzioni>summary::before{content:"+ "}
+details.opzioni[open]>summary::before{content:"− "}
+.ansata{--ansa:1.05rem;display:block;width:100%;border:0;cursor:pointer;
+  background:linear-gradient(180deg,var(--bronzo-alto),var(--bronzo) 55%,var(--bronzo-basso));
+  color:var(--bronzo-testo);font-family:var(--capitali);font-weight:700;font-size:1.12rem;letter-spacing:.09em;
+  text-transform:uppercase;padding:1.05rem 2.2rem .95rem;position:relative;
+  clip-path:polygon(var(--ansa) 0,calc(100% - var(--ansa)) 0,calc(100% - var(--ansa)) 40%,100% 14%,100% 86%,
+    calc(100% - var(--ansa)) 60%,calc(100% - var(--ansa)) 100%,var(--ansa) 100%,var(--ansa) 60%,0 86%,0 14%,var(--ansa) 40%)}
+.ansata::after{content:"";position:absolute;top:.28rem;bottom:.28rem;left:calc(var(--ansa) + .3rem);
+  right:calc(var(--ansa) + .3rem);border:1px solid currentColor;opacity:.4;pointer-events:none}
+.ansata:active{filter:brightness(.92);transform:translateY(1px)}
+.ansata:disabled{filter:grayscale(.6) opacity(.6)}
+.errore{margin:.9rem 0 0;padding:.7rem .9rem;background:var(--avviso-fondo);color:var(--minio);border-radius:3px}
+.avviso-config{margin:1.4rem 0 0;padding:1rem 1.1rem;border:4px double var(--linea)}
+.avviso-config p{margin:0 0 .7rem}
+.link-bottone{background:none;border:0;padding:0;color:var(--minio);text-decoration:underline;cursor:pointer}
+h2.sezione{margin:2.6rem 0 .4rem;font-family:var(--capitali);font-size:1rem;font-weight:700;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--minio)}
+.storico{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea)}
+.storico li{border-bottom:1px solid var(--linea)}
+.storico button{display:flex;align-items:center;gap:1rem;width:100%;padding:1rem 0;background:none;border:0;
+  text-align:left;cursor:pointer}
+.storico .nome{display:block;font-family:var(--capitali);font-weight:600;font-size:1.02rem;letter-spacing:.05em;
+  text-transform:uppercase;line-height:1.3}
+.storico .meta{display:block;color:var(--tenue);font-size:.98rem}
+.vuoto{color:var(--tenue);font-style:italic;margin:.6rem 0}
+.piede{margin-top:2.6rem;display:flex;justify-content:space-between;gap:1rem;color:var(--tenue);font-size:.98rem}
+
+/* targa del prezzo */
+.tabula{position:relative;display:inline-block;flex:none;padding:.48rem 1.5rem .38rem;
+  background:linear-gradient(180deg,var(--bronzo-alto),var(--bronzo) 55%,var(--bronzo-basso));
+  color:var(--bronzo-testo);font-family:var(--capitali);font-size:1.45rem;font-weight:700;line-height:1;
+  letter-spacing:.03em;white-space:nowrap;
   clip-path:polygon(.7rem 0,calc(100% - .7rem) 0,calc(100% - .7rem) 43%,100% 22%,100% 78%,
     calc(100% - .7rem) 57%,calc(100% - .7rem) 100%,.7rem 100%,.7rem 57%,0 78%,0 22%,.7rem 43%)}
 .tabula::after{content:"";position:absolute;top:.2rem;bottom:.2rem;left:.92rem;right:.92rem;
   border:1px solid currentColor;opacity:.4}
-.titolo{display:block;margin:.55rem 0 .1rem;font-weight:600;font-size:1.12rem;line-height:1.3;
-  overflow-wrap:anywhere}
-.annuncio:hover .titolo{text-decoration:underline;text-decoration-color:var(--minio)}
-.meta{display:block;color:var(--tenue);font-size:.95rem}
+.tabula.piccola{font-size:1.18rem}
+
+/* attesa */
+#v-attesa{display:flex;flex-direction:column;justify-content:center;text-align:center}
+#v-attesa[hidden]{display:none!important}
+.corona-attesa{width:min(62vw,15rem);height:auto;margin:0 auto;display:block}
+.corona-attesa .foglia{opacity:.22}
+@media (prefers-reduced-motion:no-preference){
+  .corona-attesa .foglia{animation:tessi 3.6s calc(var(--i) * .18s) ease-in-out infinite}
+}
+@media (prefers-reduced-motion:reduce){.corona-attesa .foglia{opacity:.85}}
+@keyframes tessi{0%,100%{opacity:.22}35%,60%{opacity:1}}
+.attesa-titolo{margin:1.4rem 0 .2rem;font-family:var(--capitali);font-weight:600;font-size:1.3rem;letter-spacing:.06em}
+.attesa-ricerca{margin:0;color:var(--tenue);font-style:italic}
+.cronometro{margin:.8rem 0 0;font-family:var(--capitali);font-size:1.6rem;font-variant-numeric:tabular-nums;color:var(--minio)}
+.fasi{list-style:none;margin:1.6rem auto 0;padding:0;text-align:left;max-width:20rem}
+.fasi li{display:flex;gap:.7rem;align-items:baseline;padding:.32rem 0;color:var(--tenue)}
+.fasi li::before{content:"";flex:none;width:.6rem;height:.6rem;border:1.5px solid currentColor;transform:rotate(45deg) translateY(-.05rem)}
+.fasi li.corrente{color:var(--inchiostro);font-weight:600}
+.fasi li.corrente::before{background:var(--minio);border-color:var(--minio)}
+.fasi li.fatta::before{background:var(--bronzo);border-color:var(--bronzo)}
+.nota-attesa{margin:1.8rem auto 0;max-width:22rem;color:var(--tenue);font-size:1rem}
+
+/* risultati */
+.barra{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;
+  margin:calc(-1 * (env(safe-area-inset-top,0px) + .6rem)) -1.25rem 0;padding:calc(env(safe-area-inset-top,0px) + .55rem) 1.25rem .55rem;
+  background:color-mix(in srgb,var(--pietra) 86%,transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+  border-bottom:1px solid transparent}
+.barra.ombra{border-bottom-color:var(--linea)}
+.barra button{background:none;border:0;padding:.4rem 0;font-family:var(--capitali);font-size:.92rem;font-weight:600;
+  letter-spacing:.08em;color:var(--minio);cursor:pointer}
+.testata-ris{margin-top:1rem;text-align:center}
+.testata-ris .fregio{max-width:15rem}
+.testata-ris .saluto{font-size:.95rem}
+h1.cercato{margin:1.5rem 0 .9rem;font-family:var(--capitali);font-weight:600;font-size:clamp(1.7rem,7.4vw,2.6rem);
+  line-height:1.18;letter-spacing:.07em;text-transform:uppercase;overflow-wrap:anywhere}
+.sintesi{margin:0 0 .3rem;font-size:1.22rem;font-weight:600;line-height:1.35}
+.dettagli{margin:0;color:var(--tenue);font-size:1rem}
+.elenco{list-style:none;margin:1.9rem 0 0;padding:0;border-top:1px solid var(--linea)}
+.elenco>li{border-bottom:1px solid var(--linea)}
+.annuncio{display:grid;grid-template-columns:6.6rem 1fr;gap:1.05rem;padding:1.15rem 0;color:inherit;text-decoration:none}
+.annuncio img,.senza-foto{display:block;width:6.6rem;height:8.8rem;object-fit:cover;border-radius:2px;background:var(--foto)}
+.corpo{min-width:0}
+.testa{display:flex;align-items:center;gap:.6rem}
+.ordine{min-width:2.7rem;text-align:center;font-family:var(--capitali);font-size:.85rem;font-weight:700;
+  letter-spacing:.1em;color:var(--minio)}
+.ordine-corona{display:block;width:2.7rem;height:2.7rem;flex:none}
+.ordine-corona text{fill:var(--minio);font-family:var(--capitali);font-weight:700;font-size:13px}
+.titolo{display:block;margin:.6rem 0 .12rem;font-weight:600;font-size:1.17rem;line-height:1.3;overflow-wrap:anywhere}
+.meta{display:block;color:var(--tenue);font-size:1rem}
 .avvisi{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.5rem}
-.avviso{padding:.1rem .5rem;border-radius:2px;background:var(--avviso-fondo);color:var(--minio);
-  font-size:.9rem;line-height:1.35}
-.vuoto{margin-top:2rem;padding:1.1rem 1.25rem;border:4px double var(--linea)}
-.vuoto p{margin:.2rem 0}
-details.scartati{margin-top:2.6rem}
-details.scartati>summary{cursor:pointer;padding:.6rem 0;font-family:var(--capitali);
-  font-weight:600;font-size:.95rem;letter-spacing:.05em}
-.gruppo h2{margin:1.4rem 0 .3rem;font-family:var(--capitali);font-size:.95rem;font-weight:700;
-  letter-spacing:.07em;color:var(--minio)}
+.avviso{padding:.1rem .5rem;border-radius:2px;background:var(--avviso-fondo);color:var(--minio);font-size:.93rem;line-height:1.35}
+details.respinti{margin-top:2.6rem}
+details.respinti>summary{cursor:pointer;padding:.6rem 0;font-family:var(--capitali);font-weight:600;font-size:1rem;letter-spacing:.05em}
+.gruppo h3{margin:1.4rem 0 .3rem;font-family:var(--capitali);font-size:.95rem;font-weight:700;letter-spacing:.07em;color:var(--minio)}
 .gruppo ul{list-style:none;margin:0;padding:0}
-.gruppo li{padding:.5rem 0;border-bottom:1px solid var(--linea);font-size:1rem}
-.gruppo li .perche{display:block;color:var(--tenue);font-size:.92rem;font-style:italic}
+.gruppo li{padding:.55rem 0;border-bottom:1px solid var(--linea);font-size:1.02rem}
+.gruppo .perche{display:block;color:var(--tenue);font-size:.95rem;font-style:italic}
 .gruppo .prezzo{white-space:nowrap}
-.ricerche{list-style:none;margin:1.9rem 0 0;padding:0;border-top:1px solid var(--linea)}
-.ricerche li{border-bottom:1px solid var(--linea)}
-.ricerche a{display:flex;align-items:center;gap:1rem;padding:1.05rem 0;color:inherit;text-decoration:none}
-.ricerche .nome{display:block;font-family:var(--capitali);font-weight:600;font-size:1.05rem;
-  letter-spacing:.05em;text-transform:uppercase}
-.ricerche a:hover .nome{text-decoration:underline;text-decoration-color:var(--minio)}
-.ricerche .tabula{font-size:1.15rem;flex:none}
-footer{margin-top:3rem;color:var(--tenue);font-size:.95rem;font-style:italic}
-footer p{margin:.25rem 0}
+.fonte{margin-top:2.4rem;color:var(--tenue);font-size:.95rem;font-style:italic}
+
+/* impostazioni */
+h1.titolo-pagina{margin:1.3rem 0 .6rem;font-family:var(--capitali);font-weight:600;font-size:1.6rem;letter-spacing:.06em}
+.istruzioni{margin:1.4rem 0;padding:1rem 1.15rem;border:4px double var(--linea)}
+.istruzioni ol{margin:.4rem 0 0;padding-left:1.3rem}
+.istruzioni li{margin:.35rem 0}
+.istruzioni b{font-weight:600}
+.esito{margin:.9rem 0 0;padding:.7rem .9rem;border-radius:3px}
+.esito.ok{background:var(--pietra-chiara);border:1px solid var(--bronzo)}
+.esito.ko{background:var(--avviso-fondo);color:var(--minio)}
+.secondario{margin-top:2.4rem;padding-top:1rem;border-top:1px solid var(--linea);color:var(--tenue);font-size:1rem}
 </style>
 </head>
-<body class="">
-<main>
-<header class="omaggio"><svg class="fregio" viewBox="0 0 360 150" role="img" aria-label="Due Vittorie alate reggono una corona d'alloro"><g class="figure">
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="g-bronzo" x1="0" y1="0" x2="0.35" y2="1">
+      <stop offset="0" style="stop-color:var(--bronzo-alto)"/>
+      <stop offset=".55" style="stop-color:var(--bronzo)"/>
+      <stop offset="1" style="stop-color:var(--bronzo-basso)"/>
+    </linearGradient>
+  </defs>
+</svg>
+
+<main id="v-home" class="vista">
+  <header class="testata avvio">
+    <svg class="fregio" viewBox="0 0 360 152" role="img" aria-label="Due Vittorie alate reggono una corona d'alloro"><g class="figure"><g class="vit-sx">
 <g class="vittoria">
   <path class="ala" d="M106,55 C96,31 72,13 34,6 C42,13 45,19 45,24 C51,24 55,28 57,33 C63,32 67,36 69,41 C75,41 79,45 81,50 C87,50 91,53 93,57 C97,57 100,58 102,61 Z"/>
   <path class="piume" d="M58,22 C70,28 82,37 94,49 M48,14 C64,20 80,31 98,45"/>
@@ -111,7 +219,7 @@ footer p{margin:.25rem 0}
   <path class="veste" d="M98,54.5 C105,52 117,52 124,54.5 C128.5,58 130,64 128,70.5 C127,73 125.5,74.5 124.5,76 C128,84 131.5,93 131,103 C130.5,117 131.5,131 135.5,143 C122,146.2 102,146.2 87.5,143 C89.5,129 89,115 89.5,103 C90,93 93,84 97.5,77 C96,70 95.5,61 98,54.5 Z"/>
   <path class="pieghe" d="M97.5,76.5 C106,74.8 116,74.8 124.5,76 M104,80 C101,100 97,122 94,142 M112,80 C112,102 112,124 111,144 M120,80 C123,100 125,122 128,143 M124,59 C125.5,63 125.5,67 124,70.5"/>
   <path d="M131,142 L141.5,143.4 L140.8,145.4 L130,145 Z"/>
-</g><g transform="translate(360 0) scale(-1 1)">
+</g></g><g class="vit-dx"><g transform="translate(360 0) scale(-1 1)">
 <g class="vittoria">
   <path class="ala" d="M106,55 C96,31 72,13 34,6 C42,13 45,19 45,24 C51,24 55,28 57,33 C63,32 67,36 69,41 C75,41 79,45 81,50 C87,50 91,53 93,57 C97,57 100,58 102,61 Z"/>
   <path class="piume" d="M58,22 C70,28 82,37 94,49 M48,14 C64,20 80,31 98,45"/>
@@ -124,10 +232,470 @@ footer p{margin:.25rem 0}
   <path class="veste" d="M98,54.5 C105,52 117,52 124,54.5 C128.5,58 130,64 128,70.5 C127,73 125.5,74.5 124.5,76 C128,84 131.5,93 131,103 C130.5,117 131.5,131 135.5,143 C122,146.2 102,146.2 87.5,143 C89.5,129 89,115 89.5,103 C90,93 93,84 97.5,77 C96,70 95.5,61 98,54.5 Z"/>
   <path class="pieghe" d="M97.5,76.5 C106,74.8 116,74.8 124.5,76 M104,80 C101,100 97,122 94,142 M112,80 C112,102 112,124 111,144 M120,80 C123,100 125,122 128,143 M124,59 C125.5,63 125.5,67 124,70.5"/>
   <path d="M131,142 L141.5,143.4 L140.8,145.4 L130,145 Z"/>
-</g></g></g><g class="alloro"><ellipse cx="176.1" cy="74.3" rx="4.6" ry="2.0" transform="rotate(218 176.1 74.3)"/><ellipse cx="177.0" cy="69.1" rx="4.6" ry="2.0" transform="rotate(162 177.0 69.1)"/><ellipse cx="170.2" cy="72.3" rx="4.6" ry="2.0" transform="rotate(234 170.2 72.3)"/><ellipse cx="172.4" cy="67.7" rx="4.6" ry="2.0" transform="rotate(178 172.4 67.7)"/><ellipse cx="165.0" cy="68.9" rx="4.6" ry="2.0" transform="rotate(250 165.0 68.9)"/><ellipse cx="168.4" cy="65.0" rx="4.6" ry="2.0" transform="rotate(194 168.4 65.0)"/><ellipse cx="161.0" cy="64.2" rx="4.6" ry="2.0" transform="rotate(265 161.0 64.2)"/><ellipse cx="165.3" cy="61.4" rx="4.6" ry="2.0" transform="rotate(209 165.3 61.4)"/><ellipse cx="158.4" cy="58.5" rx="4.6" ry="2.0" transform="rotate(281 158.4 58.5)"/><ellipse cx="163.3" cy="57.0" rx="4.6" ry="2.0" transform="rotate(225 163.3 57.0)"/><ellipse cx="157.4" cy="52.4" rx="4.6" ry="2.0" transform="rotate(297 157.4 52.4)"/><ellipse cx="162.6" cy="52.3" rx="4.6" ry="2.0" transform="rotate(241 162.6 52.3)"/><ellipse cx="158.1" cy="46.2" rx="4.6" ry="2.0" transform="rotate(313 158.1 46.2)"/><ellipse cx="163.2" cy="47.6" rx="4.6" ry="2.0" transform="rotate(257 163.2 47.6)"/><ellipse cx="160.5" cy="40.5" rx="4.6" ry="2.0" transform="rotate(329 160.5 40.5)"/><ellipse cx="165.0" cy="43.1" rx="4.6" ry="2.0" transform="rotate(273 165.0 43.1)"/><ellipse cx="164.4" cy="35.6" rx="4.6" ry="2.0" transform="rotate(344 164.4 35.6)"/><ellipse cx="168.0" cy="39.4" rx="4.6" ry="2.0" transform="rotate(288 168.0 39.4)"/><ellipse cx="169.5" cy="32.0" rx="4.6" ry="2.0" transform="rotate(360 169.5 32.0)"/><ellipse cx="171.9" cy="36.6" rx="4.6" ry="2.0" transform="rotate(304 171.9 36.6)"/><ellipse cx="175.3" cy="29.9" rx="4.6" ry="2.0" transform="rotate(376 175.3 29.9)"/><ellipse cx="176.4" cy="35.0" rx="4.6" ry="2.0" transform="rotate(320 176.4 35.0)"/><path d="M176.5,71.7 A20,20 0 0 1 175.8,32.4" fill="none" stroke="currentColor" stroke-width="1.2"/><ellipse cx="183.9" cy="74.3" rx="4.6" ry="2.0" transform="rotate(-38 183.9 74.3)"/><ellipse cx="183.0" cy="69.1" rx="4.6" ry="2.0" transform="rotate(18 183.0 69.1)"/><ellipse cx="189.8" cy="72.3" rx="4.6" ry="2.0" transform="rotate(-54 189.8 72.3)"/><ellipse cx="187.6" cy="67.7" rx="4.6" ry="2.0" transform="rotate(2 187.6 67.7)"/><ellipse cx="195.0" cy="68.9" rx="4.6" ry="2.0" transform="rotate(-70 195.0 68.9)"/><ellipse cx="191.6" cy="65.0" rx="4.6" ry="2.0" transform="rotate(-14 191.6 65.0)"/><ellipse cx="199.0" cy="64.2" rx="4.6" ry="2.0" transform="rotate(-85 199.0 64.2)"/><ellipse cx="194.7" cy="61.4" rx="4.6" ry="2.0" transform="rotate(-29 194.7 61.4)"/><ellipse cx="201.6" cy="58.5" rx="4.6" ry="2.0" transform="rotate(-101 201.6 58.5)"/><ellipse cx="196.7" cy="57.0" rx="4.6" ry="2.0" transform="rotate(-45 196.7 57.0)"/><ellipse cx="202.6" cy="52.4" rx="4.6" ry="2.0" transform="rotate(-117 202.6 52.4)"/><ellipse cx="197.4" cy="52.3" rx="4.6" ry="2.0" transform="rotate(-61 197.4 52.3)"/><ellipse cx="201.9" cy="46.2" rx="4.6" ry="2.0" transform="rotate(-133 201.9 46.2)"/><ellipse cx="196.8" cy="47.6" rx="4.6" ry="2.0" transform="rotate(-77 196.8 47.6)"/><ellipse cx="199.5" cy="40.5" rx="4.6" ry="2.0" transform="rotate(-149 199.5 40.5)"/><ellipse cx="195.0" cy="43.1" rx="4.6" ry="2.0" transform="rotate(-93 195.0 43.1)"/><ellipse cx="195.6" cy="35.6" rx="4.6" ry="2.0" transform="rotate(-164 195.6 35.6)"/><ellipse cx="192.0" cy="39.4" rx="4.6" ry="2.0" transform="rotate(-108 192.0 39.4)"/><ellipse cx="190.5" cy="32.0" rx="4.6" ry="2.0" transform="rotate(-180 190.5 32.0)"/><ellipse cx="188.1" cy="36.6" rx="4.6" ry="2.0" transform="rotate(-124 188.1 36.6)"/><ellipse cx="184.7" cy="29.9" rx="4.6" ry="2.0" transform="rotate(-196 184.7 29.9)"/><ellipse cx="183.6" cy="35.0" rx="4.6" ry="2.0" transform="rotate(-140 183.6 35.0)"/><path d="M183.5,71.7 A20,20 0 0 0 184.2,32.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path class="nastro" d="M177,71 C172,78 168,81 165,88 M183,71 C188,78 192,81 195,88" fill="none" stroke-width="2.2" stroke-linecap="round"/></g><path class="suolo" d="M30,146.5 H330"/></svg><h1 class="saluto">Ave <span class="punto" aria-hidden="true"></span> Imperatore <span class="punto" aria-hidden="true"></span> Francesco</h1></header>
-<p class="dettagli">Annunci Vinted dal più economico, senza accessori, oggetti rotti o falsi.</p>
-<div class="vuoto"><p>Nessuna ricerca ancora.</p><p>Su GitHub apri Actions, scegli Cerca su Vinted e premi Run workflow.</p></div>
-<footer><p>Per una nuova ricerca: Actions, Cerca su Vinted, Run workflow. La pagina si aggiorna entro un paio di minuti.</p></footer>
+</g></g></g></g><g class="alloro"><ellipse cx="176.1" cy="74.3" rx="4.6" ry="2.0" transform="rotate(218 176.1 74.3)"/><ellipse cx="177.0" cy="69.1" rx="4.6" ry="2.0" transform="rotate(162 177.0 69.1)"/><ellipse cx="170.2" cy="72.3" rx="4.6" ry="2.0" transform="rotate(234 170.2 72.3)"/><ellipse cx="172.4" cy="67.7" rx="4.6" ry="2.0" transform="rotate(178 172.4 67.7)"/><ellipse cx="165.0" cy="68.9" rx="4.6" ry="2.0" transform="rotate(250 165.0 68.9)"/><ellipse cx="168.4" cy="65.0" rx="4.6" ry="2.0" transform="rotate(194 168.4 65.0)"/><ellipse cx="161.0" cy="64.2" rx="4.6" ry="2.0" transform="rotate(265 161.0 64.2)"/><ellipse cx="165.3" cy="61.4" rx="4.6" ry="2.0" transform="rotate(209 165.3 61.4)"/><ellipse cx="158.4" cy="58.5" rx="4.6" ry="2.0" transform="rotate(281 158.4 58.5)"/><ellipse cx="163.3" cy="57.0" rx="4.6" ry="2.0" transform="rotate(225 163.3 57.0)"/><ellipse cx="157.4" cy="52.4" rx="4.6" ry="2.0" transform="rotate(297 157.4 52.4)"/><ellipse cx="162.6" cy="52.3" rx="4.6" ry="2.0" transform="rotate(241 162.6 52.3)"/><ellipse cx="158.1" cy="46.2" rx="4.6" ry="2.0" transform="rotate(313 158.1 46.2)"/><ellipse cx="163.2" cy="47.6" rx="4.6" ry="2.0" transform="rotate(257 163.2 47.6)"/><ellipse cx="160.5" cy="40.5" rx="4.6" ry="2.0" transform="rotate(329 160.5 40.5)"/><ellipse cx="165.0" cy="43.1" rx="4.6" ry="2.0" transform="rotate(273 165.0 43.1)"/><ellipse cx="164.4" cy="35.6" rx="4.6" ry="2.0" transform="rotate(344 164.4 35.6)"/><ellipse cx="168.0" cy="39.4" rx="4.6" ry="2.0" transform="rotate(288 168.0 39.4)"/><ellipse cx="169.5" cy="32.0" rx="4.6" ry="2.0" transform="rotate(360 169.5 32.0)"/><ellipse cx="171.9" cy="36.6" rx="4.6" ry="2.0" transform="rotate(304 171.9 36.6)"/><ellipse cx="175.3" cy="29.9" rx="4.6" ry="2.0" transform="rotate(376 175.3 29.9)"/><ellipse cx="176.4" cy="35.0" rx="4.6" ry="2.0" transform="rotate(320 176.4 35.0)"/><path d="M176.5,71.7 A20,20 0 0 1 175.8,32.4" fill="none" stroke="currentColor" stroke-width="1.2"/><ellipse cx="183.9" cy="74.3" rx="4.6" ry="2.0" transform="rotate(-38 183.9 74.3)"/><ellipse cx="183.0" cy="69.1" rx="4.6" ry="2.0" transform="rotate(18 183.0 69.1)"/><ellipse cx="189.8" cy="72.3" rx="4.6" ry="2.0" transform="rotate(-54 189.8 72.3)"/><ellipse cx="187.6" cy="67.7" rx="4.6" ry="2.0" transform="rotate(2 187.6 67.7)"/><ellipse cx="195.0" cy="68.9" rx="4.6" ry="2.0" transform="rotate(-70 195.0 68.9)"/><ellipse cx="191.6" cy="65.0" rx="4.6" ry="2.0" transform="rotate(-14 191.6 65.0)"/><ellipse cx="199.0" cy="64.2" rx="4.6" ry="2.0" transform="rotate(-85 199.0 64.2)"/><ellipse cx="194.7" cy="61.4" rx="4.6" ry="2.0" transform="rotate(-29 194.7 61.4)"/><ellipse cx="201.6" cy="58.5" rx="4.6" ry="2.0" transform="rotate(-101 201.6 58.5)"/><ellipse cx="196.7" cy="57.0" rx="4.6" ry="2.0" transform="rotate(-45 196.7 57.0)"/><ellipse cx="202.6" cy="52.4" rx="4.6" ry="2.0" transform="rotate(-117 202.6 52.4)"/><ellipse cx="197.4" cy="52.3" rx="4.6" ry="2.0" transform="rotate(-61 197.4 52.3)"/><ellipse cx="201.9" cy="46.2" rx="4.6" ry="2.0" transform="rotate(-133 201.9 46.2)"/><ellipse cx="196.8" cy="47.6" rx="4.6" ry="2.0" transform="rotate(-77 196.8 47.6)"/><ellipse cx="199.5" cy="40.5" rx="4.6" ry="2.0" transform="rotate(-149 199.5 40.5)"/><ellipse cx="195.0" cy="43.1" rx="4.6" ry="2.0" transform="rotate(-93 195.0 43.1)"/><ellipse cx="195.6" cy="35.6" rx="4.6" ry="2.0" transform="rotate(-164 195.6 35.6)"/><ellipse cx="192.0" cy="39.4" rx="4.6" ry="2.0" transform="rotate(-108 192.0 39.4)"/><ellipse cx="190.5" cy="32.0" rx="4.6" ry="2.0" transform="rotate(-180 190.5 32.0)"/><ellipse cx="188.1" cy="36.6" rx="4.6" ry="2.0" transform="rotate(-124 188.1 36.6)"/><ellipse cx="184.7" cy="29.9" rx="4.6" ry="2.0" transform="rotate(-196 184.7 29.9)"/><ellipse cx="183.6" cy="35.0" rx="4.6" ry="2.0" transform="rotate(-140 183.6 35.0)"/><path d="M183.5,71.7 A20,20 0 0 0 184.2,32.4" fill="none" stroke="currentColor" stroke-width="1.2"/><path class="nastro" d="M177,71 C172,78 168,81 165,88 M183,71 C188,78 192,81 195,88" fill="none" stroke-width="2.2" stroke-linecap="round"/></g><path class="suolo" d="M24,147 H336"/></svg>
+    <h1 class="saluto" id="saluto"></h1>
+  </header>
+
+  <form id="modulo" autocomplete="off" novalidate>
+    <p class="domanda">Che cosa devono cercare i tuoi messaggeri?</p>
+    <label class="campo"><span>Oggetto</span>
+      <input id="f-ricerca" type="search" enterkeyhint="search" placeholder="apple watch series 9" required></label>
+    <div class="riga">
+      <label class="campo"><span>Prezzo da €</span>
+        <input id="f-min" inputmode="decimal" placeholder="80"></label>
+      <label class="campo"><span>Prezzo fino a €</span>
+        <input id="f-max" inputmode="decimal" placeholder="300"></label>
+    </div>
+    <details class="opzioni">
+      <summary>Altre opzioni</summary>
+      <label class="campo"><span>Parole da escludere nel titolo, separate da virgola</span>
+        <input id="f-escludi" placeholder="ultra, se"></label>
+      <label class="campo"><span>Quante offerte valide vuoi</span>
+        <input id="f-quanti" inputmode="numeric" placeholder="30"></label>
+    </details>
+    <button class="ansata" id="b-cerca" type="submit">Manda i messaggeri</button>
+    <p class="errore" id="errore-home" hidden></p>
+  </form>
+
+  <div class="avviso-config" id="avviso-config" hidden>
+    <p>Per mandare i messaggeri dall'app serve un codice di accesso GitHub. Si fa una volta sola.</p>
+    <button class="ansata" type="button" data-vai="impostazioni">Configura</button>
+  </div>
+
+  <h2 class="sezione">Le tue ricerche</h2>
+  <ul class="storico" id="storico"></ul>
+  <p class="vuoto" id="storico-vuoto" hidden>Nessuna ricerca ancora.</p>
+
+  <div class="piede">
+    <button class="link-bottone" type="button" data-vai="impostazioni">Impostazioni</button>
+    <span id="versione">VinF</span>
+  </div>
 </main>
+
+<main id="v-attesa" class="vista" hidden>
+  <svg class="corona-attesa" viewBox="0 0 120 130" aria-hidden="true"><g class="alloro"><ellipse class="foglia" style="--i:0" cx="52.5" cy="100.4" rx="5.4" ry="2.3" transform="rotate(218 52.5 100.4)"/><ellipse class="foglia" style="--i:0" cx="53.6" cy="94.3" rx="5.4" ry="2.3" transform="rotate(162 53.6 94.3)"/><ellipse class="foglia" style="--i:1" cx="42.2" cy="97.3" rx="5.4" ry="2.3" transform="rotate(232 42.2 97.3)"/><ellipse class="foglia" style="--i:1" cx="44.8" cy="91.6" rx="5.4" ry="2.3" transform="rotate(176 44.8 91.6)"/><ellipse class="foglia" style="--i:2" cx="33.0" cy="91.6" rx="5.4" ry="2.3" transform="rotate(247 33.0 91.6)"/><ellipse class="foglia" style="--i:2" cx="36.9" cy="86.8" rx="5.4" ry="2.3" transform="rotate(191 36.9 86.8)"/><ellipse class="foglia" style="--i:3" cx="25.5" cy="83.9" rx="5.4" ry="2.3" transform="rotate(261 25.5 83.9)"/><ellipse class="foglia" style="--i:3" cx="30.5" cy="80.2" rx="5.4" ry="2.3" transform="rotate(205 30.5 80.2)"/><ellipse class="foglia" style="--i:4" cx="20.2" cy="74.5" rx="5.4" ry="2.3" transform="rotate(275 20.2 74.5)"/><ellipse class="foglia" style="--i:4" cx="25.9" cy="72.1" rx="5.4" ry="2.3" transform="rotate(219 25.9 72.1)"/><ellipse class="foglia" style="--i:5" cx="17.3" cy="64.1" rx="5.4" ry="2.3" transform="rotate(290 17.3 64.1)"/><ellipse class="foglia" style="--i:5" cx="23.5" cy="63.3" rx="5.4" ry="2.3" transform="rotate(234 23.5 63.3)"/><ellipse class="foglia" style="--i:6" cx="17.2" cy="53.4" rx="5.4" ry="2.3" transform="rotate(304 17.2 53.4)"/><ellipse class="foglia" style="--i:6" cx="23.3" cy="54.0" rx="5.4" ry="2.3" transform="rotate(248 23.3 54.0)"/><ellipse class="foglia" style="--i:7" cx="19.6" cy="42.9" rx="5.4" ry="2.3" transform="rotate(319 19.6 42.9)"/><ellipse class="foglia" style="--i:7" cx="25.4" cy="45.0" rx="5.4" ry="2.3" transform="rotate(263 25.4 45.0)"/><ellipse class="foglia" style="--i:8" cx="24.7" cy="33.3" rx="5.4" ry="2.3" transform="rotate(333 24.7 33.3)"/><ellipse class="foglia" style="--i:8" cx="29.7" cy="36.9" rx="5.4" ry="2.3" transform="rotate(277 29.7 36.9)"/><ellipse class="foglia" style="--i:9" cx="31.9" cy="25.3" rx="5.4" ry="2.3" transform="rotate(347 31.9 25.3)"/><ellipse class="foglia" style="--i:9" cx="35.9" cy="30.0" rx="5.4" ry="2.3" transform="rotate(291 35.9 30.0)"/><ellipse class="foglia" style="--i:10" cx="40.9" cy="19.4" rx="5.4" ry="2.3" transform="rotate(362 40.9 19.4)"/><ellipse class="foglia" style="--i:10" cx="43.6" cy="24.9" rx="5.4" ry="2.3" transform="rotate(306 43.6 24.9)"/><ellipse class="foglia" style="--i:11" cx="51.0" cy="15.8" rx="5.4" ry="2.3" transform="rotate(376 51.0 15.8)"/><ellipse class="foglia" style="--i:11" cx="52.3" cy="21.9" rx="5.4" ry="2.3" transform="rotate(320 52.3 21.9)"/><ellipse class="foglia" style="--i:0" cx="67.5" cy="100.4" rx="5.4" ry="2.3" transform="rotate(-38 67.5 100.4)"/><ellipse class="foglia" style="--i:0" cx="66.4" cy="94.3" rx="5.4" ry="2.3" transform="rotate(18 66.4 94.3)"/><ellipse class="foglia" style="--i:1" cx="77.8" cy="97.3" rx="5.4" ry="2.3" transform="rotate(-52 77.8 97.3)"/><ellipse class="foglia" style="--i:1" cx="75.2" cy="91.6" rx="5.4" ry="2.3" transform="rotate(4 75.2 91.6)"/><ellipse class="foglia" style="--i:2" cx="87.0" cy="91.6" rx="5.4" ry="2.3" transform="rotate(-67 87.0 91.6)"/><ellipse class="foglia" style="--i:2" cx="83.1" cy="86.8" rx="5.4" ry="2.3" transform="rotate(-11 83.1 86.8)"/><ellipse class="foglia" style="--i:3" cx="94.5" cy="83.9" rx="5.4" ry="2.3" transform="rotate(-81 94.5 83.9)"/><ellipse class="foglia" style="--i:3" cx="89.5" cy="80.2" rx="5.4" ry="2.3" transform="rotate(-25 89.5 80.2)"/><ellipse class="foglia" style="--i:4" cx="99.8" cy="74.5" rx="5.4" ry="2.3" transform="rotate(-95 99.8 74.5)"/><ellipse class="foglia" style="--i:4" cx="94.1" cy="72.1" rx="5.4" ry="2.3" transform="rotate(-39 94.1 72.1)"/><ellipse class="foglia" style="--i:5" cx="102.7" cy="64.1" rx="5.4" ry="2.3" transform="rotate(-110 102.7 64.1)"/><ellipse class="foglia" style="--i:5" cx="96.5" cy="63.3" rx="5.4" ry="2.3" transform="rotate(-54 96.5 63.3)"/><ellipse class="foglia" style="--i:6" cx="102.8" cy="53.4" rx="5.4" ry="2.3" transform="rotate(-124 102.8 53.4)"/><ellipse class="foglia" style="--i:6" cx="96.7" cy="54.0" rx="5.4" ry="2.3" transform="rotate(-68 96.7 54.0)"/><ellipse class="foglia" style="--i:7" cx="100.4" cy="42.9" rx="5.4" ry="2.3" transform="rotate(-139 100.4 42.9)"/><ellipse class="foglia" style="--i:7" cx="94.6" cy="45.0" rx="5.4" ry="2.3" transform="rotate(-83 94.6 45.0)"/><ellipse class="foglia" style="--i:8" cx="95.3" cy="33.3" rx="5.4" ry="2.3" transform="rotate(-153 95.3 33.3)"/><ellipse class="foglia" style="--i:8" cx="90.3" cy="36.9" rx="5.4" ry="2.3" transform="rotate(-97 90.3 36.9)"/><ellipse class="foglia" style="--i:9" cx="88.1" cy="25.3" rx="5.4" ry="2.3" transform="rotate(-167 88.1 25.3)"/><ellipse class="foglia" style="--i:9" cx="84.1" cy="30.0" rx="5.4" ry="2.3" transform="rotate(-111 84.1 30.0)"/><ellipse class="foglia" style="--i:10" cx="79.1" cy="19.4" rx="5.4" ry="2.3" transform="rotate(-182 79.1 19.4)"/><ellipse class="foglia" style="--i:10" cx="76.4" cy="24.9" rx="5.4" ry="2.3" transform="rotate(-126 76.4 24.9)"/><ellipse class="foglia" style="--i:11" cx="69.0" cy="15.8" rx="5.4" ry="2.3" transform="rotate(-196 69.0 15.8)"/><ellipse class="foglia" style="--i:11" cx="67.7" cy="21.9" rx="5.4" ry="2.3" transform="rotate(-140 67.7 21.9)"/><path class="nastro" d="M57,97 C51,105 46,109 42,117 M63,97 C69,105 74,109 78,117" fill="none"/></g></svg>
+  <p class="attesa-titolo" id="attesa-titolo">I messaggeri sono partiti</p>
+  <p class="attesa-ricerca" id="attesa-ricerca"></p>
+  <p class="cronometro" id="cronometro">0:00</p>
+  <ol class="fasi" id="fasi">
+    <li data-fase="0">In coda presso GitHub</li>
+    <li data-fase="1">Si preparano al viaggio</li>
+    <li data-fase="2">Esaminano gli annunci su Vinted</li>
+    <li data-fase="3">Portano le offerte all'Imperatore</li>
+  </ol>
+  <p class="nota-attesa">Di solito ci vogliono 2–4 minuti. Puoi chiudere l'app: la ricerca continua e la ritrovi qui.</p>
+  <p class="errore" id="errore-attesa" hidden></p>
+  <p id="azioni-attesa" hidden><button class="link-bottone" type="button" data-vai="home">Torna all'inizio</button></p>
+</main>
+
+<main id="v-risultati" class="vista" hidden>
+  <div class="barra" id="barra-ris">
+    <button type="button" data-vai="home">‹ Indietro</button>
+    <button type="button" id="b-ripeti">Ripeti la ricerca</button>
+  </div>
+  <div id="contenuto-ris"></div>
+</main>
+
+<main id="v-impostazioni" class="vista" hidden>
+  <div class="barra">
+    <button type="button" data-vai="home">‹ Indietro</button>
+    <span></span>
+  </div>
+  <h1 class="titolo-pagina">Impostazioni</h1>
+  <p>L'app avvia la ricerca sul tuo repository GitHub e ne legge i risultati. Per farlo le serve un codice di accesso, che resta solo su questo iPhone.</p>
+  <div class="istruzioni">
+    <b>Come creare il codice</b>
+    <ol>
+      <li>Apri <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">questa pagina di GitHub</a>.</li>
+      <li>In <b>Token name</b> scrivi VinF. In <b>Expiration</b> scegli la durata più lunga disponibile.</li>
+      <li>In <b>Repository access</b> scegli <b>Only select repositories</b> e seleziona il tuo repository.</li>
+      <li>In <b>Permissions</b>, sotto Repository permissions, imposta <b>Actions</b> su Read and write e <b>Contents</b> su Read-only.</li>
+      <li>Premi <b>Generate token</b>, copia il codice che inizia con github_pat_ e incollalo qui sotto.</li>
+    </ol>
+  </div>
+  <label class="campo"><span>Nome utente GitHub</span><input id="c-owner" autocapitalize="off" autocorrect="off" spellcheck="false"></label>
+  <label class="campo"><span>Repository</span><input id="c-repo" autocapitalize="off" autocorrect="off" spellcheck="false"></label>
+  <label class="campo"><span>Codice di accesso</span><input id="c-token" type="password" autocapitalize="off" autocorrect="off" spellcheck="false" placeholder="github_pat_…"></label>
+  <button class="ansata" type="button" id="b-salva">Salva e verifica</button>
+  <p class="esito" id="esito" hidden></p>
+  <div class="secondario">
+    <p>Le ricerche già scaricate restano salvate su questo iPhone.</p>
+    <button class="link-bottone" type="button" id="b-svuota">Cancella i dati salvati sul telefono</button>
+  </div>
+</main>
+
+<script>
+"use strict";
+const SALUTO = "Ave Imperatore Francesco";
+const CORONA_PRIMO = `<svg class="ordine-corona" viewBox="0 0 40 40" aria-hidden="true"><g class="alloro"><ellipse cx="17.3" cy="35.4" rx="3.3" ry="1.45" transform="rotate(218 17.3 35.4)"/><ellipse cx="18.2" cy="30.2" rx="3.3" ry="1.45" transform="rotate(162 18.2 30.2)"/><ellipse cx="10.8" cy="32.6" rx="3.3" ry="1.45" transform="rotate(244 10.8 32.6)"/><ellipse cx="13.8" cy="28.4" rx="3.3" ry="1.45" transform="rotate(188 13.8 28.4)"/><ellipse cx="6.1" cy="27.2" rx="3.3" ry="1.45" transform="rotate(271 6.1 27.2)"/><ellipse cx="10.8" cy="24.8" rx="3.3" ry="1.45" transform="rotate(215 10.8 24.8)"/><ellipse cx="4.4" cy="20.3" rx="3.3" ry="1.45" transform="rotate(297 4.4 20.3)"/><ellipse cx="9.6" cy="20.2" rx="3.3" ry="1.45" transform="rotate(241 9.6 20.2)"/><ellipse cx="5.9" cy="13.3" rx="3.3" ry="1.45" transform="rotate(323 5.9 13.3)"/><ellipse cx="10.6" cy="15.6" rx="3.3" ry="1.45" transform="rotate(267 10.6 15.6)"/><ellipse cx="10.3" cy="7.8" rx="3.3" ry="1.45" transform="rotate(350 10.3 7.8)"/><ellipse cx="13.5" cy="11.8" rx="3.3" ry="1.45" transform="rotate(294 13.5 11.8)"/><ellipse cx="16.8" cy="4.7" rx="3.3" ry="1.45" transform="rotate(376 16.8 4.7)"/><ellipse cx="17.8" cy="9.8" rx="3.3" ry="1.45" transform="rotate(320 17.8 9.8)"/><path d="M17.7,32.8 A13,13 0 0 1 17.3,7.3" fill="none" stroke="currentColor" stroke-width="1.2"/><ellipse cx="22.7" cy="35.4" rx="3.3" ry="1.45" transform="rotate(-38 22.7 35.4)"/><ellipse cx="21.8" cy="30.2" rx="3.3" ry="1.45" transform="rotate(18 21.8 30.2)"/><ellipse cx="29.2" cy="32.6" rx="3.3" ry="1.45" transform="rotate(-64 29.2 32.6)"/><ellipse cx="26.2" cy="28.4" rx="3.3" ry="1.45" transform="rotate(-8 26.2 28.4)"/><ellipse cx="33.9" cy="27.2" rx="3.3" ry="1.45" transform="rotate(-91 33.9 27.2)"/><ellipse cx="29.2" cy="24.8" rx="3.3" ry="1.45" transform="rotate(-35 29.2 24.8)"/><ellipse cx="35.6" cy="20.3" rx="3.3" ry="1.45" transform="rotate(-117 35.6 20.3)"/><ellipse cx="30.4" cy="20.2" rx="3.3" ry="1.45" transform="rotate(-61 30.4 20.2)"/><ellipse cx="34.1" cy="13.3" rx="3.3" ry="1.45" transform="rotate(-143 34.1 13.3)"/><ellipse cx="29.4" cy="15.6" rx="3.3" ry="1.45" transform="rotate(-87 29.4 15.6)"/><ellipse cx="29.7" cy="7.8" rx="3.3" ry="1.45" transform="rotate(-170 29.7 7.8)"/><ellipse cx="26.5" cy="11.8" rx="3.3" ry="1.45" transform="rotate(-114 26.5 11.8)"/><ellipse cx="23.2" cy="4.7" rx="3.3" ry="1.45" transform="rotate(-196 23.2 4.7)"/><ellipse cx="22.2" cy="9.8" rx="3.3" ry="1.45" transform="rotate(-140 22.2 9.8)"/><path d="M22.3,32.8 A13,13 0 0 0 22.7,7.3" fill="none" stroke="currentColor" stroke-width="1.2"/></g><text x="20" y="24.6" text-anchor="middle">I</text></svg>`;
+const FREGIO_HTML = document.querySelector('#v-home .fregio').outerHTML;
+const $ = s => document.querySelector(s);
+const $$ = s => Array.from(document.querySelectorAll(s));
+
+/* ---------- memoria sul telefono ---------- */
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem('vinf.' + k); return v ? JSON.parse(v) : d; } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem('vinf.' + k, JSON.stringify(v)); return true; } catch (e) { return false; } },
+  del(k) { try { localStorage.removeItem('vinf.' + k); } catch (e) {} }
+};
+
+function repoDaIndirizzo() {
+  const m = location.hostname.match(/^([^.]+)\.github\.io$/i);
+  const seg = location.pathname.split('/').filter(Boolean)[0] || '';
+  return { owner: m ? m[1] : '', repo: m && seg && !/\.html?$/i.test(seg) ? seg : '' };
+}
+const cfg = (() => {
+  const auto = repoDaIndirizzo(), salvata = LS.get('cfg', {});
+  return {
+    owner: salvata.owner || auto.owner, repo: salvata.repo || auto.repo,
+    token: salvata.token || '', ramo: salvata.ramo || 'main'
+  };
+})();
+const configurata = () => !!(cfg.owner && cfg.repo && cfg.token);
+
+/* ---------- testo ---------- */
+const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+function euro(x) {
+  if (x == null || isNaN(x)) return '–';
+  let s = Number(x).toLocaleString('it-IT', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  if (s.endsWith(',00')) s = s.slice(0, -3);
+  return s + ' €';
+}
+function romano(n) {
+  const v = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']];
+  let r = ''; for (const [k, s] of v) while (n >= k) { r += s; n -= k; } return r;
+}
+const iscrizione = t => String(t).trim().split(/\s+/).map(esc).join(' <span class="punto" aria-hidden="true"></span> ');
+function normalizza(t) {
+  return String(t || '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
+    .replace(/[’‘'`´]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+const nomeFile = t => normalizza(t).replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60) || 'ricerca';
+function leggiData(iso) {
+  const m = String(iso || '').match(/^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2})/);
+  return m ? { anno: +m[1], mese: m[2], giorno: m[3], ora: m[4] + ':' + m[5], ms: Date.parse(iso) } : null;
+}
+function dataBreve(iso) {
+  const d = leggiData(iso); if (!d) return '';
+  const quest = new Date().getFullYear() === d.anno;
+  return `${d.giorno}/${d.mese}${quest ? '' : '/' + d.anno} alle ${d.ora}`;
+}
+const numero = v => { const s = String(v || '').replace(/[€\s]/g, '').replace(',', '.'); return s && !isNaN(+s) ? s : ''; };
+
+/* ---------- GitHub ---------- */
+class ErroreApp extends Error {}
+async function gh(percorso, opz = {}) {
+  let r;
+  try {
+    r = await fetch(`https://api.github.com/repos/${encodeURIComponent(cfg.owner)}/${encodeURIComponent(cfg.repo)}${percorso}`, {
+      method: opz.metodo || 'GET', cache: 'no-store',
+      headers: Object.assign({ Accept: opz.accept || 'application/vnd.github+json', Authorization: 'Bearer ' + cfg.token },
+        opz.corpo ? { 'Content-Type': 'application/json' } : {}),
+      body: opz.corpo ? JSON.stringify(opz.corpo) : undefined
+    });
+  } catch (e) {
+    throw new ErroreApp('Nessuna connessione con GitHub. Controlla internet e riprova.');
+  }
+  if (r.status === 401) throw new ErroreApp('Il codice di accesso non è valido o è scaduto. Aggiornalo in Impostazioni.');
+  return r;
+}
+async function leggiJSON(percorso) {
+  // prima dal repository via API (sempre aggiornato), poi dal sito (senza codice)
+  if (configurata()) {
+    try {
+      const r = await gh(`/contents/${percorso}?ref=${encodeURIComponent(cfg.ramo)}&t=${Date.now()}`, { accept: 'application/vnd.github.raw+json' });
+      if (r.ok) return await r.json();
+      if (r.status === 404) return null;
+    } catch (e) { /* si riprova dal sito */ }
+  }
+  try {
+    const r = await fetch(percorso + '?t=' + Date.now(), { cache: 'no-store' });
+    return r.ok ? await r.json() : null;
+  } catch (e) { return null; }
+}
+
+/* ---------- navigazione ---------- */
+const VISTE = ['home', 'attesa', 'risultati', 'impostazioni'];
+function vai(nome) {
+  for (const v of VISTE) $('#v-' + v).hidden = v !== nome;
+  window.scrollTo(0, 0);
+  if (nome === 'home') mostraHome();
+  if (nome === 'impostazioni') mostraImpostazioni();
+}
+document.addEventListener('click', e => {
+  const b = e.target.closest('[data-vai]');
+  if (b) { e.preventDefault(); vai(b.dataset.vai); }
+});
+window.addEventListener('scroll', () => {
+  for (const b of $$('.barra')) b.classList.toggle('ombra', window.scrollY > 8);
+}, { passive: true });
+
+/* ---------- home ---------- */
+$('#saluto').innerHTML = iscrizione(SALUTO);
+function mostraHome() {
+  $('#avviso-config').hidden = configurata();
+  disegnaStorico(LS.get('storico', []));
+  aggiornaStorico();
+}
+function disegnaStorico(voci) {
+  const ul = $('#storico');
+  ul.innerHTML = voci.map(v => `<li><button type="button" data-apri="${esc(v.slug)}">
+      ${v.prezzo != null ? `<span class="tabula piccola">${euro(v.prezzo)}</span>` : ''}
+      <span><span class="nome">${esc(v.ricerca)}</span>
+      <span class="meta">${v.validi ? (v.validi === 1 ? '1 offerta' : v.validi + ' offerte') : 'Nessuna offerta'}, ${esc(dataBreve(v.creata))}</span></span>
+    </button></li>`).join('');
+  $('#storico-vuoto').hidden = voci.length > 0;
+}
+async function aggiornaStorico() {
+  const remoto = await leggiJSON('ricerche/indice.json');
+  if (!Array.isArray(remoto)) return;
+  const mappa = new Map(LS.get('storico', []).map(v => [v.slug, v]));
+  for (const r of remoto) {
+    const slug = String(r.file || '').replace(/\.json$/, '');
+    if (!slug) continue;
+    const loc = mappa.get(slug);
+    if (!loc || (leggiData(r.creata)?.ms || 0) > (leggiData(loc.creata)?.ms || 0))
+      mappa.set(slug, { slug, ricerca: r.ricerca, creata: r.creata, validi: r.validi, prezzo: r.prezzo_piu_basso });
+  }
+  const voci = [...mappa.values()].sort((a, b) => (leggiData(b.creata)?.ms || 0) - (leggiData(a.creata)?.ms || 0));
+  LS.set('storico', voci);
+  if (!$('#v-home').hidden) disegnaStorico(voci);
+}
+$('#storico').addEventListener('click', e => {
+  const b = e.target.closest('[data-apri]');
+  if (b) apriRisultato(b.dataset.apri);
+});
+
+$('#modulo').addEventListener('submit', async e => {
+  e.preventDefault();
+  const err = $('#errore-home'); err.hidden = true;
+  const ricerca = $('#f-ricerca').value.trim();
+  if (!ricerca) { $('#f-ricerca').focus(); return; }
+  if (!configurata()) { vai('impostazioni'); return; }
+  const param = { ricerca, prezzo_min: numero($('#f-min').value), prezzo_max: numero($('#f-max').value),
+                  escludi: $('#f-escludi').value.trim(), quanti: numero($('#f-quanti').value) || '30' };
+  $('#b-cerca').disabled = true;
+  try { await avviaRicerca(param); }
+  catch (ex) { err.textContent = ex.message; err.hidden = false; }
+  finally { $('#b-cerca').disabled = false; }
+});
+
+/* ---------- ricerca e attesa ---------- */
+async function avviaRicerca(param) {
+  const inizio = Date.now();
+  const r = await gh('/actions/workflows/cerca.yml/dispatches', { metodo: 'POST', corpo: { ref: cfg.ramo, inputs: param } });
+  if (r.status === 403 || r.status === 404)
+    throw new ErroreApp('GitHub non permette di avviare la ricerca: controlla che il codice abbia Actions in Read and write e che il repository sia giusto.');
+  if (r.status === 422)
+    throw new ErroreApp('GitHub non trova il file .github/workflows/cerca.yml nel repository.');
+  if (r.status !== 204) throw new ErroreApp(`GitHub ha risposto con l'errore ${r.status}. Riprova tra poco.`);
+  const incorso = { param, inizio, runId: null };
+  LS.set('incorso', incorso);
+  LS.set('ultimiParam', param);
+  segui(incorso);
+}
+
+let timerPoll = null, timerCrono = null, seguita = null;
+function impostaFase(n, conclusa) {
+  for (const li of $$('#fasi li')) {
+    const f = +li.dataset.fase;
+    li.className = conclusa || f < n ? 'fatta' : f === n ? 'corrente' : '';
+  }
+}
+function segui(incorso) {
+  seguita = incorso;
+  vai('attesa');
+  $('#attesa-titolo').textContent = 'I messaggeri sono partiti';
+  $('#attesa-ricerca').textContent = '«' + incorso.param.ricerca + '»';
+  $('#errore-attesa').hidden = true; $('#azioni-attesa').hidden = true;
+  impostaFase(0);
+  clearInterval(timerCrono);
+  const crono = () => {
+    const s = Math.max(0, Math.floor((Date.now() - incorso.inizio) / 1000));
+    $('#cronometro').textContent = Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+  };
+  crono(); timerCrono = setInterval(crono, 1000);
+  controlla();
+}
+function fermaAttesa() { clearTimeout(timerPoll); clearInterval(timerCrono); seguita = null; }
+function fallita(msg) {
+  fermaAttesa(); LS.del('incorso');
+  $('#attesa-titolo').textContent = 'I messaggeri non ce l\'hanno fatta';
+  $('#errore-attesa').textContent = msg; $('#errore-attesa').hidden = false; $('#azioni-attesa').hidden = false;
+}
+async function controlla() {
+  const inc = seguita; if (!inc) return;
+  clearTimeout(timerPoll);
+  try {
+    if (!inc.runId) {
+      const r = await gh('/actions/workflows/cerca.yml/runs?event=workflow_dispatch&per_page=10');
+      if (r.ok) {
+        const runs = (await r.json()).workflow_runs || [];
+        const candidati = runs.filter(x => Date.parse(x.created_at) >= inc.inizio - 20000)
+                              .sort((a, b) => Date.parse(a.created_at) - Date.parse(b.created_at));
+        if (candidati.length) { inc.runId = candidati[0].id; LS.set('incorso', inc); }
+      }
+      if (!inc.runId && Date.now() - inc.inizio > 120000) return fallita('GitHub non ha avviato la ricerca. Riprova tra qualche minuto.');
+    }
+    if (inc.runId) {
+      const [rr, rj] = await Promise.all([gh(`/actions/runs/${inc.runId}`), gh(`/actions/runs/${inc.runId}/jobs`)]);
+      const run = rr.ok ? await rr.json() : null;
+      const job = rj.ok ? ((await rj.json()).jobs || [])[0] : null;
+      const passi = job && job.steps || [];
+      const passo = nome => passi.find(p => p.name === nome);
+      const cerca = passo('Cerca su Vinted'), pubblica = passo('Pubblica i risultati');
+      let fase = 0;
+      if (run && run.status !== 'queued') fase = 1;
+      if (cerca && cerca.status !== 'queued') fase = 2;
+      if (cerca && cerca.status === 'completed') fase = 3;
+      impostaFase(fase);
+      if (run && run.status === 'completed') {
+        if (run.conclusion === 'success') return await concludi(inc);
+        const rotto = passi.find(p => p.conclusion === 'failure');
+        if (rotto && rotto.name === 'Cerca su Vinted')
+          return fallita('Vinted ha respinto i messaggeri: a volte blocca i server di GitHub. Riprova tra un po\'; se continua, fai la ricerca dal PC con cerca.bat.');
+        if (rotto && rotto.name === 'Pubblica i risultati')
+          return fallita('La ricerca è riuscita ma i risultati non sono stati salvati. Riprova: se succede ancora, in Settings → Actions → General imposta Workflow permissions su Read and write.');
+        return fallita(run.conclusion === 'cancelled' ? 'La ricerca è stata annullata.' : 'La ricerca si è interrotta. Riprova tra poco.');
+      }
+    }
+  } catch (e) {
+    if (e instanceof ErroreApp && /codice/.test(e.message)) return fallita(e.message);
+  }
+  if (Date.now() - inc.inizio > 25 * 60000) return fallita('La ricerca sta impiegando troppo tempo. Controlla la scheda Actions su GitHub.');
+  timerPoll = setTimeout(controlla, 5000);
+}
+document.addEventListener('visibilitychange', () => { if (!document.hidden && seguita) controlla(); });
+
+async function concludi(inc) {
+  $('#attesa-titolo').textContent = 'Le offerte sono arrivate';
+  impostaFase(4, true);
+  const slug = nomeFile(inc.param.ricerca);
+  let ris = null;
+  for (let i = 0; i < 6; i++) {
+    ris = await leggiJSON(`ricerche/${slug}.json`);
+    if (ris && (leggiData(ris.creata)?.ms || 0) >= inc.inizio - 120000) break;
+    await new Promise(ok => setTimeout(ok, 2500));
+  }
+  if (!ris) return fallita('La ricerca è finita ma non trovo i risultati nel repository. Riprova tra un minuto da Le tue ricerche.');
+  fermaAttesa(); LS.del('incorso');
+  memorizza(slug, ris);
+  mostraRisultato(slug, ris);
+}
+
+/* ---------- risultati ---------- */
+function memorizza(slug, ris) {
+  const voce = { slug, ricerca: ris.ricerca, creata: ris.creata, validi: (ris.validi || []).length,
+                 prezzo: ris.validi && ris.validi.length ? ris.validi[0].prezzo : null };
+  const storico = [voce, ...LS.get('storico', []).filter(v => v.slug !== slug)];
+  LS.set('storico', storico);
+  let cache = LS.get('cache', []).filter(s => s !== slug);
+  cache.unshift(slug);
+  while (!LS.set('ris.' + slug, ris) && cache.length > 1) LS.del('ris.' + cache.pop());
+  for (const vecchio of cache.splice(15)) LS.del('ris.' + vecchio);
+  LS.set('cache', cache);
+}
+async function apriRisultato(slug) {
+  const locale = LS.get('ris.' + slug, null);
+  if (locale) mostraRisultato(slug, locale);
+  const remoto = await leggiJSON(`ricerche/${slug}.json`);
+  if (remoto && (!locale || (leggiData(remoto.creata)?.ms || 0) > (leggiData(locale.creata)?.ms || 0))) {
+    memorizza(slug, remoto); mostraRisultato(slug, remoto);
+  } else if (!locale) {
+    vai('home');
+    const err = $('#errore-home'); err.textContent = 'Non riesco a scaricare questa ricerca. Controlla la connessione.'; err.hidden = false;
+  }
+}
+const GRUPPI = [['accessorio', 'Accessori'], ['guasto', 'Rotti, guasti o non funzionanti'], ['falso', 'Possibili falsi o imitazioni'],
+                ['escluso', 'Con parole che hai escluso'], ['ricerca', 'Non corrispondono alla ricerca']];
+let mostrato = null;
+function mostraRisultato(slug, r) {
+  mostrato = { slug, r };
+  const validi = r.validi || [], scartati = r.scartati || [], n = validi.length;
+  const righe = validi.map((a, i) => {
+    const foto = a.foto ? `<img src="${esc(a.foto)}" alt="" loading="lazy" referrerpolicy="no-referrer">` : '<span class="senza-foto"></span>';
+    const meta = [a.stato, a.prezzo_totale ? euro(a.prezzo_totale) + ' con Protezione acquisti' : '', a.preferiti ? a.preferiti + ' nei preferiti' : ''].filter(Boolean).join(', ');
+    const avvisi = (a.avvisi || []).map(x => `<span class="avviso">${esc(x)}</span>`).join('');
+    return `<li><a class="annuncio" href="${esc(a.url)}" target="_blank" rel="noopener">${foto}<span class="corpo">
+      <span class="testa">${i === 0 ? CORONA_PRIMO : `<span class="ordine" aria-hidden="true">${romano(i + 1)}</span>`}
+      <span class="tabula">${euro(a.prezzo)}</span></span>
+      <span class="titolo">${esc(a.titolo)}</span><span class="meta">${esc(meta)}</span>
+      ${avvisi ? `<span class="avvisi">${avvisi}</span>` : ''}</span></a></li>`;
+  }).join('');
+  const prezzo = r.prezzo_min != null && r.prezzo_max != null ? `Prezzo tra ${euro(r.prezzo_min)} e ${euro(r.prezzo_max)}.`
+    : r.prezzo_min != null ? `Prezzo da ${euro(r.prezzo_min)} in su.` : r.prezzo_max != null ? `Prezzo fino a ${euro(r.prezzo_max)}.` : '';
+  const dettagli = [prezzo, r.escludi ? `Parole escluse: ${r.escludi}.` : '',
+    `Hanno esaminato ${r.analizzati} annunci e ne hanno respinti ${scartati.length}.`, `Aggiornato il ${dataBreve(r.creata)}.`].filter(Boolean).join(' ');
+  const sintesi = n === 0 ? 'I tuoi messaggeri non hanno trovato offerte degne di te.'
+    : n === 1 ? 'I tuoi messaggeri hanno trovato un\'offerta degna di te.'
+    : `I tuoi messaggeri hanno trovato ${n} offerte degne di te, dalla più economica.`;
+  const gruppi = GRUPPI.map(([k, nome]) => {
+    const lista = scartati.filter(a => a.categoria === k); if (!lista.length) return '';
+    return `<div class="gruppo"><h3>${nome} (${lista.length})</h3><ul>${lista.slice(0, 200).map(a =>
+      `<li><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.titolo || 'Senza titolo')}</a> <span class="prezzo">${euro(a.prezzo)}</span>
+       <span class="perche">${esc(a.motivo)}</span></li>`).join('')}</ul></div>`;
+  }).join('');
+  $('#contenuto-ris').innerHTML = `
+    <header class="testata-ris">${FREGIO_HTML.replace('class="fregio"', 'class="fregio" aria-hidden="true"')}
+      <p class="saluto">${iscrizione(SALUTO)}</p></header>
+    <h1 class="cercato">${iscrizione(r.ricerca)}</h1>
+    <p class="sintesi">${sintesi}</p><p class="dettagli">${esc(dettagli)}</p>
+    ${n ? `<ul class="elenco">${righe}</ul>` : `<div class="avviso-config"><p>Nessuna offerta ha superato l'esame.</p><p>Alza il prezzo massimo, togli una parola o chiedi più offerte in Altre opzioni.</p></div>`}
+    ${scartati.length ? `<details class="respinti"><summary>Respinti dall'Imperatore (${scartati.length}), con il motivo</summary>${gruppi}</details>` : ''}
+    <p class="fonte">Prezzi senza spedizione. Il prezzo sulla targa è quello del venditore; accanto c'è il totale con la Protezione acquisti di Vinted.</p>`;
+  vai('risultati');
+}
+$('#b-ripeti').addEventListener('click', async () => {
+  if (!mostrato) return;
+  if (!configurata()) { vai('impostazioni'); return; }
+  const r = mostrato.r, prec = LS.get('ultimiParam', {});
+  const param = { ricerca: r.ricerca, prezzo_min: r.prezzo_min != null ? String(r.prezzo_min) : '',
+                  prezzo_max: r.prezzo_max != null ? String(r.prezzo_max) : '', escludi: r.escludi || '',
+                  quanti: prec.ricerca === r.ricerca && prec.quanti ? prec.quanti : '30' };
+  try { await avviaRicerca(param); }
+  catch (ex) { alert(ex.message); }
+});
+
+/* ---------- impostazioni ---------- */
+function mostraImpostazioni() {
+  $('#c-owner').value = cfg.owner; $('#c-repo').value = cfg.repo; $('#c-token').value = cfg.token;
+  $('#esito').hidden = true;
+}
+$('#b-salva').addEventListener('click', async () => {
+  cfg.owner = $('#c-owner').value.trim(); cfg.repo = $('#c-repo').value.trim(); cfg.token = $('#c-token').value.trim();
+  const esito = $('#esito');
+  const mostra = (ok, testo) => { esito.className = 'esito ' + (ok ? 'ok' : 'ko'); esito.textContent = testo; esito.hidden = false; };
+  if (!configurata()) return mostra(false, 'Compila tutti e tre i campi.');
+  try {
+    const r = await gh('');
+    if (r.status === 404) return mostra(false, 'Non trovo il repository: controlla nome utente e repository, e che il codice abbia accesso a quel repository.');
+    if (!r.ok) return mostra(false, `GitHub ha risposto con l'errore ${r.status}.`);
+    cfg.ramo = (await r.json()).default_branch || 'main';
+    const w = await gh('/actions/workflows/cerca.yml');
+    if (w.status === 404) return mostra(false, 'Il repository c\'è, ma manca il file .github/workflows/cerca.yml, oppure il codice non ha il permesso Actions.');
+    if (!w.ok) return mostra(false, `GitHub ha risposto con l'errore ${w.status} sul workflow.`);
+    LS.set('cfg', cfg);
+    mostra(true, 'Tutto pronto. I messaggeri attendono i tuoi ordini.');
+  } catch (e) { mostra(false, e.message); }
+});
+$('#b-svuota').addEventListener('click', () => {
+  if (!confirm('Cancello ricerche e codice salvati su questo iPhone? Le ricerche restano nel repository.')) return;
+  for (const k of Object.keys(localStorage)) if (k.startsWith('vinf.')) localStorage.removeItem(k);
+  location.reload();
+});
+
+/* ---------- avvio ---------- */
+if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('sw.js').catch(() => {});
+(function avvio() {
+  const inc = LS.get('incorso', null);
+  if (inc && Date.now() - inc.inizio < 30 * 60000 && configurata()) segui(inc);
+  else { LS.del('incorso'); vai('home'); }
+  const p = LS.get('ultimiParam', null);
+  if (p) {
+    $('#f-ricerca').value = p.ricerca || ''; $('#f-min').value = p.prezzo_min || ''; $('#f-max').value = p.prezzo_max || '';
+    $('#f-escludi').value = p.escludi || ''; if (p.quanti && p.quanti !== '30') $('#f-quanti').value = p.quanti;
+  }
+})();
+</script>
 </body>
 </html>

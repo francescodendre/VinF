@@ -815,7 +815,7 @@ def html_risultati(r: dict) -> str:
     blocco_scartati = (f'<details class="scartati"><summary>Respinti dall\'Imperatore ({len(scartati)}), '
                        f'con il motivo</summary>{"".join(gruppi)}</details>') if scartati else ""
 
-    corpo = (f'<a class="indietro" href="../index.html">Tutte le ricerche</a>\n'
+    corpo = (f'<a class="indietro" href="../index.html">Apri l\'app</a>\n'
              f"{intestazione(False)}<h1>{iscrizione(r['ricerca'])}</h1>\n"
              f'<p class="sintesi">{sintesi}</p>\n<p class="dettagli">{e(dettagli)}</p>\n'
              f"{elenco}\n{blocco_scartati}\n"
@@ -825,31 +825,6 @@ def html_risultati(r: dict) -> str:
     return documento(f"{r['ricerca']}: Vinted", corpo, "risultati")
 
 
-def html_indice(ricerche: list) -> str:
-    e = html.escape
-    voci = []
-    for r in ricerche:
-        validi = r.get("validi") or []
-        prezzo = validi[0]["prezzo"] if validi else None
-        dettaglio = (f"{len(validi)} annunci validi, aggiornata il {data_leggibile(r.get('creata'))}"
-                     if validi else f"Nessun annuncio valido, {data_leggibile(r.get('creata'))}")
-        tabula = f'<span class="tabula">{euro(prezzo)}</span>' if prezzo is not None else ""
-        voci.append(f'<li><a href="ricerche/{e(r["_file"])}">{tabula}<span>'
-                    f'<span class="nome">{e(r["ricerca"])}</span>'
-                    f'<span class="meta">{e(dettaglio)}</span></span></a></li>')
-    if voci:
-        elenco = '<ul class="ricerche">' + "".join(voci) + "</ul>"
-        sintesi = "Le ricerche dei tuoi messaggeri, dalla più recente. Sulla targa c'è il prezzo più basso trovato."
-    else:
-        elenco = ('<div class="vuoto"><p>Nessuna ricerca ancora.</p><p>Su GitHub apri Actions, '
-                  "scegli Cerca su Vinted e premi Run workflow.</p></div>")
-        sintesi = "Annunci Vinted dal più economico, senza accessori, oggetti rotti o falsi."
-    corpo = (f"{intestazione(True)}<p class=\"dettagli\">{sintesi}</p>\n{elenco}\n"
-             "<footer><p>Per una nuova ricerca: Actions, Cerca su Vinted, Run workflow. "
-             "La pagina si aggiorna entro un paio di minuti.</p></footer>")
-    return documento("Ricerche Vinted", corpo)
-
-
 # ---------------------------------------------------------------- salvare ---
 
 def nome_file(testo: str) -> str:
@@ -857,16 +832,28 @@ def nome_file(testo: str) -> str:
 
 
 def aggiorna_indice():
-    ricerche = []
+    """Elenco delle ricerche per l'app (ricerche/indice.json). index.html è l'app: non va toccato."""
+    voci = []
     for f in RICERCHE.glob("*.json") if RICERCHE.exists() else []:
+        if f.name == "indice.json":
+            continue
         try:
             r = json.loads(f.read_text(encoding="utf-8"))
         except ValueError:
             continue
-        r["_file"] = f.stem + ".html"
-        ricerche.append(r)
-    ricerche.sort(key=lambda r: r.get("creata") or "", reverse=True)
-    (SITO / "index.html").write_text(html_indice(ricerche), encoding="utf-8")
+        validi = r.get("validi") or []
+        voci.append({
+            "ricerca": r.get("ricerca"),
+            "file": f.name,
+            "pagina": f.stem + ".html",
+            "creata": r.get("creata"),
+            "validi": len(validi),
+            "prezzo_piu_basso": validi[0]["prezzo"] if validi else None,
+            "analizzati": r.get("analizzati"),
+        })
+    voci.sort(key=lambda v: v.get("creata") or "", reverse=True)
+    RICERCHE.mkdir(parents=True, exist_ok=True)
+    (RICERCHE / "indice.json").write_text(json.dumps(voci, ensure_ascii=False, indent=1), encoding="utf-8")
     (SITO / ".nojekyll").touch()
 
 
