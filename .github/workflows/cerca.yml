@@ -1,0 +1,61 @@
+name: Cerca su Vinted
+
+on:
+  workflow_dispatch:
+    inputs:
+      ricerca:
+        description: "Cosa cerchi (es. apple watch series 9)"
+        required: true
+        type: string
+      prezzo_min:
+        description: "Prezzo minimo in euro (vuoto = nessuno)"
+        required: false
+        type: string
+      prezzo_max:
+        description: "Prezzo massimo in euro (vuoto = nessuno)"
+        required: false
+        type: string
+      escludi:
+        description: "Parole da escludere nel titolo, separate da virgola"
+        required: false
+        type: string
+      quanti:
+        description: "Quanti annunci validi vuoi"
+        required: false
+        default: "30"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: vinted-cerca
+
+jobs:
+  cerca:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Installa
+        run: pip install -r requirements.txt
+      - name: Cerca su Vinted
+        env:
+          RICERCA: ${{ inputs.ricerca }}
+          PREZZO_MIN: ${{ inputs.prezzo_min }}
+          PREZZO_MAX: ${{ inputs.prezzo_max }}
+          ESCLUDI: ${{ inputs.escludi }}
+          QUANTI: ${{ inputs.quanti }}
+        run: python vinted_cerca.py "$RICERCA" --prezzo-min "$PREZZO_MIN" --prezzo-max "$PREZZO_MAX" --escludi "$ESCLUDI" --quanti "$QUANTI"
+      - name: Pubblica i risultati
+        env:
+          RICERCA: ${{ inputs.ricerca }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html ricerche .nojekyll
+          git commit -m "Ricerca: $RICERCA" || echo "Niente di nuovo da pubblicare"
+          git push
